@@ -1,0 +1,26 @@
+menu "SPIbus"
+
+config SPIBUS_LOG_READWRITES
+    bool "Log successuful read/write operations"
+    depends on ! LOG_DEFAULT_LEVEL_NONE && ! LOG_DEFAULT_LEVEL_ERROR && ! LOG_DEFAULT_LEVEL_WARN
+    default "n"
+    help
+        Log all successuful read/write data, including port, slave address, 
+        target register and the data written to. Useful for debugging.
+
+choice
+    prompt "Log level"
+    depends on SPIBUS_LOG_READWRITES
+    default SPIBUS_LOG_RW_LEVEL_VERBOSE
+    help
+        Log level for successuful read/write operations. Levels depends on LOG_DEFAULT_LEVEL.
+
+config SPIBUS_LOG_RW_LEVEL_INFO
+    bool "Info"
+config SPIBUS_LOG_RW_LEVEL_DEBUG
+    bool "Debug"
+config SPIBUS_LOG_RW_LEVEL_VERBOSE
+    bool "Verbose"
+endchoice
+
+endmenu
