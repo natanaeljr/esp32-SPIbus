@@ -2,7 +2,7 @@
 
 SPI interface library in C++ for working with **Espressif ESP32 IoT Development Framework _(esp-idf)_**, that supports master mode.
 
-This SPIbus library is designed just as a high-level access of the ESP32's SPI peripheral, that actually, incorporates the `spi_master` driver from _esp-idf_, translating the SPI functions as object oriented code. Its purpose is to simplify the usage of the native spi-master driver, and it is most for communication with 8-bit register sensors.
+This SPIbus library is designed just as a high-level access of the ESP32's SPI peripheral, that actually, incorporates some of the _basic functionality_ of `spi_master` driver from _esp-idf_, translating the SPI functions as object oriented code. Its purpose is to simplify the usage of the native spi-master driver, and it is most for communication with **8-bit register sensors**.
 
 So if you want to interact with a simple sensor over SPI protocol using C++, you can use this library to do so, a bit easier.
 
