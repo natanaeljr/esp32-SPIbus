@@ -21,8 +21,8 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 IN THE SOFTWARE.
  ========================================================================= */
 
- #ifndef _SPIBUS_HPP_
- #define _SPIBUS_HPP_
+#ifndef _SPIBUS_HPP_
+#define _SPIBUS_HPP_
 
 #include <stdint.h>
 #include "driver/spi_common.h"
@@ -49,7 +49,7 @@ class SPIbus_t {
     spi_host_device_t host;
 
  public:
-    SPIbus_t(spi_host_device_t host);
+    explicit SPIbus_t(spi_host_device_t host);
     ~SPIbus_t();
 
     esp_err_t begin(int mosi_io_num, int miso_io_num, int sclk_io_num, int max_transfer_sz = SPI_MAX_DMA_LEN);

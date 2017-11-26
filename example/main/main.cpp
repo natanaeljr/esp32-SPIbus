@@ -38,11 +38,15 @@ IN THE SOFTWARE.
 #define CS_PIN    16
 #define SPI_CLOCK 1000000  // 1 MHz
 
+/*
+ *  HSPI and VSPI are the default SPI controller objects
+ */
 
 extern "C" void app_main() {
     printf("\033[7m[APP]\033[0m\n");
 
     SPIbus_t &SPI = VSPI;
+    
     spi_device_handle_t device;
     ESP_ERROR_CHECK(SPI.begin(MOSI_PIN, MISO_PIN, SCLK_PIN));
     ESP_ERROR_CHECK(SPI.addDevice(SPI_MODE, SPI_CLOCK, CS_PIN, &device));

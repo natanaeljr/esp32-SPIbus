@@ -2,4 +2,5 @@
 **/build
 **/sdkconfig
 **/sdkconfig.old
+tools.mk
 NOTES
