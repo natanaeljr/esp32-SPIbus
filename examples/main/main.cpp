@@ -26,9 +26,9 @@ IN THE SOFTWARE.
 #include <stdint.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#include "SPIbus.hpp"
 #include "esp_log.h"
 #include "esp_err.h"
+#include "SPIbus.hpp"
 
 
 #define SPI_MODE  0
@@ -57,5 +57,7 @@ extern "C" void app_main() {
         vTaskDelay(1000 / portTICK_PERIOD_MS);
     }
 
+    SPI.removeDevice(device);
+    SPI.close();
     vTaskDelay(portMAX_DELAY);
 }
