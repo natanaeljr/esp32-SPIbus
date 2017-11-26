@@ -113,7 +113,7 @@ class SPIbus_t {
 
     /**
      * *** READING interface ***
-     * @breif  I2C commands for reading a 8-bit slave device register.
+     * @breif  SPI commands for reading a 8-bit slave device register.
      *         All of them returns standard esp_err_t codes.So it can be used
      *         with ESP_ERROR_CHECK();
      * @param  handle    [SPI device handle]
