@@ -1,7 +1,7 @@
 menu "SPIbus"
 
 config SPIBUS_LOG_READWRITES
-    bool "Log successuful read/write operations"
+    bool "Log successuful read/write operations (debug)"
     depends on ! LOG_DEFAULT_LEVEL_NONE && ! LOG_DEFAULT_LEVEL_ERROR && ! LOG_DEFAULT_LEVEL_WARN
     default "n"
     help

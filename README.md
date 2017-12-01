@@ -22,11 +22,11 @@ The ESP32 has four SPI peripheral devices, called SPI0, SPI1, HSPI and VSPI.
 
 SPI0 is entirely dedicated to the flash cache, the ESP32 uses to map the SPI flash device it is connected to into memory. SPI1 is connected to the same hardware lines as SPI0 and is used to write to the flash chip. HSPI and VSPI are free to use and are the currently implemented ones in the esp-idf.
 
-So we can start off initializing the default global objects `HSPI` and `VSPI` as follows:
+So we can start off initializing the default global objects `hspi` and `vspi` as follows:
 
 ```C++
-HSPI.begin(MOSI_1, MISO_1, SCLK_1)
-VSPI.begin(MOSI_2, MISO_2, SCLK_2)
+hspi.begin(MOSI_1, MISO_1, SCLK_1)
+vspi.begin(MOSI_2, MISO_2, SCLK_2)
 ```
 
 HSPI and VSPI all have three chip select lines, allowing them to drive up to three SPI devices each as a master.
@@ -34,14 +34,14 @@ To add a device to the controller, simply call addDevice() with the device confi
 
 ```C++
 spi_device_handle_t sensor_handle
-HSPI.addDevice(SPIMODE, CLOCK, CS_PIN, &sensor_handle);
+hspi.addDevice(SPIMODE, CLOCK, CS_PIN, &sensor_handle);
 ```
 
 Now we read and write to the device with the specific methods.
 
 ```C++
-HSPI.writeByte(sensor_handle, REGISTER_ADDR, VALUE)
-HSPI.readBit(sensor_handle, REGISTER_ADDR, BITNUM, BUFFER)
+hspi.writeByte(sensor_handle, REGISTER_ADDR, VALUE)
+hspi.readBit(sensor_handle, REGISTER_ADDR, BITNUM, BUFFER)
 ```
 
 The library has several methods to read/write which simplifies communication. See the header file for more info.

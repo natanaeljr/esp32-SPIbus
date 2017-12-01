@@ -34,23 +34,24 @@ IN THE SOFTWARE.
 #define SPIBUS_WRITE    (0x7F)  /*!< addr & SPIBUS_WRITE */
 
 // Forward declaration
-class SPIbus_t;
+class SPI;
 
 // Default objects
-extern SPIbus_t HSPI;
-extern SPIbus_t VSPI;
+extern SPI hspi;
+extern SPI vspi;
 
 
-/* ^^^^^^
- * SPIBUS
- * ^^^^^^ */
-class SPIbus_t {
+/* ^^^
+ * SPI
+ * ^^^ */
+typedef
+class SPI {
  private:
     spi_host_device_t host;     /*!< HSPI_HOST or VSPI_HOST */
 
  public:
-    explicit SPIbus_t(spi_host_device_t host);
-    ~SPIbus_t();
+    explicit SPI(spi_host_device_t host);
+    ~SPI();
 
     /**
      * @brief   Config SPI bus and initialize
@@ -129,8 +130,8 @@ class SPIbus_t {
     esp_err_t readBits(spi_device_handle_t handle, uint8_t regAddr, uint8_t bitStart, uint8_t length, uint8_t *data);
     esp_err_t readByte(spi_device_handle_t handle, uint8_t regAddr, uint8_t *data);
     esp_err_t readBytes(spi_device_handle_t handle, uint8_t regAddr, size_t length, uint8_t *data);
-};
+} SPI_t;
 
 
- 
+
  #endif  // end of include guard: _SPIBUS_HPP_

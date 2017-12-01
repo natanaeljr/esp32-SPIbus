@@ -38,26 +38,24 @@ IN THE SOFTWARE.
 #define CS_PIN    16
 #define SPI_CLOCK 1000000  // 1 MHz
 
-/*
- *  HSPI and VSPI are the default SPI controller objects
- */
 
 extern "C" void app_main() {
-    printf("\033[7m[APP]\033[0m\n");
+    printf("SPIbus Example \n");
+    fflush(stdout);
 
-    SPIbus_t &SPI = VSPI;
+    SPI_t &mySPI = vspi;  // vspi and hspi are the default objects
     
     spi_device_handle_t device;
-    ESP_ERROR_CHECK(SPI.begin(MOSI_PIN, MISO_PIN, SCLK_PIN));
-    ESP_ERROR_CHECK(SPI.addDevice(SPI_MODE, SPI_CLOCK, CS_PIN, &device));
+    ESP_ERROR_CHECK( mySPI.begin(MOSI_PIN, MISO_PIN, SCLK_PIN));
+    ESP_ERROR_CHECK( mySPI.addDevice(SPI_MODE, SPI_CLOCK, CS_PIN, &device));
 
     uint8_t buffer[6];
     while (1) {
-        ESP_ERROR_CHECK(SPI.readBytes(device, 0x3B, 6, buffer));
+        ESP_ERROR_CHECK(mySPI.readBytes(device, 0x3B, 6, buffer));
         vTaskDelay(1000 / portTICK_PERIOD_MS);
     }
 
-    SPI.removeDevice(device);
-    SPI.close();
+    mySPI.removeDevice(device);
+    mySPI.close();
     vTaskDelay(portMAX_DELAY);
 }

@@ -46,21 +46,21 @@ static const char* TAG __attribute__((unused)) = "SPIbus";
 /*******************************************************************************
  * OBJECTS
  ******************************************************************************/
-SPIbus_t HSPI = SPIbus_t(HSPI_HOST);
-SPIbus_t VSPI = SPIbus_t(VSPI_HOST);
+SPI hspi = SPI(HSPI_HOST);
+SPI vspi = SPI(VSPI_HOST);
 
 
 /*******************************************************************************
  * SETUP
  ******************************************************************************/
-SPIbus_t::SPIbus_t(spi_host_device_t host) : host(host) {
+SPI::SPI(spi_host_device_t host) : host(host) {
 }
 
-SPIbus_t::~SPIbus_t() {
+SPI::~SPI() {
     close();
 }
 
-esp_err_t SPIbus_t::begin(int mosi_io_num, int miso_io_num, int sclk_io_num, int max_transfer_sz) {
+esp_err_t SPI::begin(int mosi_io_num, int miso_io_num, int sclk_io_num, int max_transfer_sz) {
     spi_bus_config_t config;
     config.mosi_io_num = mosi_io_num;
     config.miso_io_num = miso_io_num;
@@ -71,11 +71,11 @@ esp_err_t SPIbus_t::begin(int mosi_io_num, int miso_io_num, int sclk_io_num, int
     return spi_bus_initialize(host, &config, 0);  // 0 DMA not used
 }
 
-esp_err_t SPIbus_t::close() {
+esp_err_t SPI::close() {
     return spi_bus_free(host);
 }
 
-esp_err_t SPIbus_t::addDevice(uint8_t mode, uint32_t clock_speed_hz, int cs_io_num, spi_device_handle_t *handle) {
+esp_err_t SPI::addDevice(uint8_t mode, uint32_t clock_speed_hz, int cs_io_num, spi_device_handle_t *handle) {
     spi_device_interface_config_t dev_config;
     dev_config.command_bits = 0;
     dev_config.address_bits = 8;
@@ -93,12 +93,12 @@ esp_err_t SPIbus_t::addDevice(uint8_t mode, uint32_t clock_speed_hz, int cs_io_n
     return spi_bus_add_device(host, &dev_config, handle);
 }
 
-esp_err_t SPIbus_t::addDevice(spi_device_interface_config_t *dev_config, spi_device_handle_t *handle) {
+esp_err_t SPI::addDevice(spi_device_interface_config_t *dev_config, spi_device_handle_t *handle) {
     dev_config->address_bits = 8;  // must be set, SPIbus uses this 8-bits to send the regAddr
     return spi_bus_add_device(host, dev_config, handle);
 }
 
-esp_err_t SPIbus_t::removeDevice(spi_device_handle_t handle) {
+esp_err_t SPI::removeDevice(spi_device_handle_t handle) {
     return spi_bus_remove_device(handle);
 }
 
@@ -106,7 +106,7 @@ esp_err_t SPIbus_t::removeDevice(spi_device_handle_t handle) {
 /*******************************************************************************
  * WRITING
  ******************************************************************************/
-esp_err_t SPIbus_t::writeBit(spi_device_handle_t handle, uint8_t regAddr, uint8_t bitNum, uint8_t data) {
+esp_err_t SPI::writeBit(spi_device_handle_t handle, uint8_t regAddr, uint8_t bitNum, uint8_t data) {
     uint8_t buffer;
     esp_err_t err = readByte(handle, regAddr, &buffer);
     if (err) return err;
@@ -114,7 +114,7 @@ esp_err_t SPIbus_t::writeBit(spi_device_handle_t handle, uint8_t regAddr, uint8_
     return writeByte(handle, regAddr, buffer);
 }
 
-esp_err_t SPIbus_t::writeBits(spi_device_handle_t handle, uint8_t regAddr, uint8_t bitStart, uint8_t length, uint8_t data) {
+esp_err_t SPI::writeBits(spi_device_handle_t handle, uint8_t regAddr, uint8_t bitStart, uint8_t length, uint8_t data) {
     uint8_t buffer;
     esp_err_t err = readByte(handle, regAddr, &buffer);
     if (err) return err;
@@ -126,11 +126,11 @@ esp_err_t SPIbus_t::writeBits(spi_device_handle_t handle, uint8_t regAddr, uint8
     return writeByte(handle, regAddr, buffer);
 }
 
-esp_err_t SPIbus_t::writeByte(spi_device_handle_t handle, uint8_t regAddr, uint8_t data) {
+esp_err_t SPI::writeByte(spi_device_handle_t handle, uint8_t regAddr, uint8_t data) {
     return writeBytes(handle, regAddr, 1, &data);
 }
 
-esp_err_t SPIbus_t::writeBytes(spi_device_handle_t handle, uint8_t regAddr, size_t length, const uint8_t *data) {
+esp_err_t SPI::writeBytes(spi_device_handle_t handle, uint8_t regAddr, size_t length, const uint8_t *data) {
     spi_transaction_t transaction;
     transaction.flags = 0;
     transaction.cmd = 0;
@@ -156,11 +156,11 @@ esp_err_t SPIbus_t::writeBytes(spi_device_handle_t handle, uint8_t regAddr, size
 /*******************************************************************************
  * READING
  ******************************************************************************/
-esp_err_t SPIbus_t::readBit(spi_device_handle_t handle, uint8_t regAddr, uint8_t bitNum, uint8_t *data) {
+esp_err_t SPI::readBit(spi_device_handle_t handle, uint8_t regAddr, uint8_t bitNum, uint8_t *data) {
     return readBits(handle, regAddr, bitNum, 1, data);
 }
 
-esp_err_t SPIbus_t::readBits(spi_device_handle_t handle, uint8_t regAddr, uint8_t bitStart, uint8_t length, uint8_t *data) {
+esp_err_t SPI::readBits(spi_device_handle_t handle, uint8_t regAddr, uint8_t bitStart, uint8_t length, uint8_t *data) {
     uint8_t buffer;
     esp_err_t err = readByte(handle, regAddr, &buffer);
     if(!err) {
@@ -172,11 +172,11 @@ esp_err_t SPIbus_t::readBits(spi_device_handle_t handle, uint8_t regAddr, uint8_
     return err;
 }
 
-esp_err_t SPIbus_t::readByte(spi_device_handle_t handle, uint8_t regAddr, uint8_t *data) {
+esp_err_t SPI::readByte(spi_device_handle_t handle, uint8_t regAddr, uint8_t *data) {
     return readBytes(handle, regAddr, 1, data);
 }
 
-esp_err_t SPIbus_t::readBytes(spi_device_handle_t handle, uint8_t regAddr, size_t length, uint8_t *data) {
+esp_err_t SPI::readBytes(spi_device_handle_t handle, uint8_t regAddr, size_t length, uint8_t *data) {
     if(length == 0) return ESP_ERR_INVALID_SIZE;
     spi_transaction_t transaction;
     transaction.flags = 0;
