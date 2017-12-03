@@ -66,7 +66,7 @@ esp_err_t SPI::begin(int mosi_io_num, int miso_io_num, int sclk_io_num, int max_
     config.miso_io_num = miso_io_num;
     config.sclk_io_num = sclk_io_num;
     config.quadwp_io_num = -1;  // -1 not used
-    config.quadwp_io_num = -1;  // -1 not used
+    config.quadhd_io_num = -1;  // -1 not used
     config.max_transfer_sz = max_transfer_sz;
     return spi_bus_initialize(host, &config, 0);  // 0 DMA not used
 }
