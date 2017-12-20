@@ -133,5 +133,11 @@ class SPI {
 } SPI_t;
 
 
+/* Get default objects */
+constexpr SPI_t& getSPI(spi_host_device_t host) {
+    return host == 1 ? hspi : vspi;
+}
+
+
 
  #endif  // end of include guard: _SPIBUS_HPP_
