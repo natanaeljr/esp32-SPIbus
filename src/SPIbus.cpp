@@ -146,7 +146,7 @@ esp_err_t SPI::writeBytes(spi_device_handle_t handle, uint8_t regAddr, size_t le
             char str[length*5+1];
             for(size_t i = 0; i < length; i++) 
                 sprintf(str+i*5, "0x%s%X ", (data[i] < 0x10 ? "0" : ""), data[i]);
-            SPIBUS_LOG_RW("[%s handle:0x%X] Write %d bytes to register 0x%X, data: %s", (host == 1 ? "HSPI" : "VSPI"), (uint32_t)handle, length, regAddr, str);
+            SPIBUS_LOG_RW("[%s, handle:0x%X] Write %d bytes to__ register 0x%X, data: %s", (host == 1 ? "HSPI" : "VSPI"), (uint32_t)handle, length, regAddr, str);
         }
     #endif
     return err;
@@ -193,7 +193,7 @@ esp_err_t SPI::readBytes(spi_device_handle_t handle, uint8_t regAddr, size_t len
             char str[length*5+1]; 
             for(size_t i = 0; i < length; i++) 
             sprintf(str+i*5, "0x%s%X ", (data[i] < 0x10 ? "0" : ""), data[i]);
-            SPIBUS_LOG_RW("[%s handle:0x%X] Read %d bytes from register 0x%X, data: %s", (host == 1 ? "HSPI" : "VSPI"), (uint32_t)handle, length, regAddr, str);
+            SPIBUS_LOG_RW("[%s, handle:0x%X] Read_ %d bytes from register 0x%X, data: %s", (host == 1 ? "HSPI" : "VSPI"), (uint32_t)handle, length, regAddr, str);
         }
     #endif
     return err;
