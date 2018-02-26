@@ -11,9 +11,7 @@ So if you want to interact with a simple sensor over SPI protocol using C++, you
 You can clone it right into your project components directory or in your specific library path.
 
 ```git
-
- git clone https://github.com/natanaeljr/SPIbus-esp32.git SPIbus
-
+ git clone https://github.com/natanaeljr/esp32-SPIbus.git SPIbus
 ```
 
 ## Usage
@@ -48,6 +46,6 @@ The library has several methods to read/write which simplifies communication. Se
 
 ---
 
-See also I2Cbus library: https://github.com/natanaeljr/I2Cbus-esp32
+See also I2Cbus library: https://github.com/natanaeljr/esp32-I2Cbus
 
 Copyright © 2017 Natanael Josue Rabello [_natanael.rabello@outlook.com_]
