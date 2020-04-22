@@ -9,4 +9,4 @@ set(COMPONENT_PRIV_REQUIRES)
 
 register_component()
 
-add_definitions(-DSPIBUS_COMPONENT_TRUE=1)
+component_compile_options(PUBLIC "-DSPIBUS_COMPONENT_TRUE=1")
