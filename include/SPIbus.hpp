@@ -57,7 +57,7 @@ class SPI {
      * @brief   Config SPI bus and initialize
      * @param   mosi_io_num     [GPIO number for Master-out Slave-in]
      * @param   miso_io_num     [GPIO number for Master-in Slave-out]
-     * @param   miso_io_num     [GPIO number for clock line]
+     * @param   sclk_io_num     [GPIO number for clock line]
      * @param   max_transfer_sz [Maximum transfer size, in bytes. Defaults to 4094 if 0.]
      * @return  - ESP_ERR_INVALID_ARG   if configuration is invalid
      *          - ESP_ERR_INVALID_STATE if host already is in use
